@@ -16,14 +16,7 @@ This service allows multiple stores to list products while customers place order
 
 Copy `.env.example` (coming soon) or export variables via shell:
 
-```
-MONGODB_URI=mongodb://localhost:27017/multi-store
-JWT_SECRET=super-secret
-JWT_EXPIRES_IN=1h
-SUPERADMIN_EMAIL=superadmin@shop.com
-SUPERADMIN_PASSWORD=ChangeMe123!
-PORT=3000
-```
+
 
 The first boot creates the default superadmin user using the values above.
 
