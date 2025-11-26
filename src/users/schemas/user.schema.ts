@@ -31,7 +31,7 @@ export const UserSchema = SchemaFactory.createForClass(User);
 UserSchema.set('toJSON', {
   virtuals: true,
   transform: (_doc, ret) => {
-    delete ret.password;
+    delete (ret as any).password;
     return ret;
   },
 });

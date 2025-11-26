@@ -6,17 +6,17 @@ export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
     registerCustomer(dto: RegisterCustomerDto): Promise<{
-        accessToken: any;
+        accessToken: string;
         user: User;
     }>;
     registerStoreOwner(dto: RegisterStoreOwnerDto): Promise<{
-        accessToken: any;
+        accessToken: string;
         user: User;
     }>;
     login(req: {
         user: User;
     }): {
-        accessToken: any;
+        accessToken: string;
         user: User;
     };
 }

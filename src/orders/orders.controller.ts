@@ -32,13 +32,17 @@ export class OrdersController {
 
   @Roles(UserRole.Customer)
   @Get('me')
-  myOrders(@CurrentUser() customer: authenticatedUserInterface.AuthenticatedUser) {
+  myOrders(
+    @CurrentUser() customer: authenticatedUserInterface.AuthenticatedUser,
+  ) {
     return this.ordersService.findCustomerOrders(customer.id);
   }
 
   @Roles(UserRole.StoreOwner)
   @Get('store')
-  storeOrders(@CurrentUser() owner: authenticatedUserInterface.AuthenticatedUser) {
+  storeOrders(
+    @CurrentUser() owner: authenticatedUserInterface.AuthenticatedUser,
+  ) {
     return this.ordersService.findStoreOrders(owner.id);
   }
 

@@ -37,14 +37,14 @@ export class OrdersService {
     for (const item of dto.items) {
       const product = await this.productsService.findById(item.productId);
 
-      if (product.store.toString() !== store._id.toString()) {
+      if (product.store.toString() !== dto.storeId.toString()) {
         throw new BadRequestException('Product does not belong to this store');
       }
 
-      await this.productsService.decrementStock(product.id, item.quantity);
+      await this.productsService.decrementStock(item.productId, item.quantity);
 
       orderItems.push({
-        product: product.id,
+        product: new Types.ObjectId(item.productId),
         quantity: item.quantity,
         unitPrice: product.price,
       });
@@ -54,7 +54,7 @@ export class OrdersService {
 
     return this.orderModel.create({
       customer: customerId,
-      store: store.id,
+      store: new Types.ObjectId(dto.storeId),
       items: orderItems,
       total,
     });
@@ -73,10 +73,7 @@ export class OrdersService {
       throw new NotFoundException('Store not found for owner');
     }
 
-    return this.orderModel
-      .find({ store: store.id })
-      .populate('customer')
-      .exec();
+    return this.orderModel.find({ store: ownerId }).populate('customer').exec();
   }
 
   async updateStatus(
@@ -94,7 +91,7 @@ export class OrdersService {
       throw new NotFoundException('Order not found');
     }
 
-    if (order.store.toString() !== store.id) {
+    if (order.store.toString() !== ownerId) {
       throw new ForbiddenException('Cannot update orders from another store');
     }
 

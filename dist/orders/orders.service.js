@@ -38,12 +38,12 @@ let OrdersService = class OrdersService {
         let total = 0;
         for (const item of dto.items) {
             const product = await this.productsService.findById(item.productId);
-            if (product.store.toString() !== store._id.toString()) {
+            if (product.store.toString() !== dto.storeId.toString()) {
                 throw new common_1.BadRequestException('Product does not belong to this store');
             }
-            await this.productsService.decrementStock(product.id, item.quantity);
+            await this.productsService.decrementStock(item.productId, item.quantity);
             orderItems.push({
-                product: product.id,
+                product: new mongoose_2.Types.ObjectId(item.productId),
                 quantity: item.quantity,
                 unitPrice: product.price,
             });
@@ -51,7 +51,7 @@ let OrdersService = class OrdersService {
         }
         return this.orderModel.create({
             customer: customerId,
-            store: store.id,
+            store: new mongoose_2.Types.ObjectId(dto.storeId),
             items: orderItems,
             total,
         });
@@ -67,10 +67,7 @@ let OrdersService = class OrdersService {
         if (!store) {
             throw new common_1.NotFoundException('Store not found for owner');
         }
-        return this.orderModel
-            .find({ store: store.id })
-            .populate('customer')
-            .exec();
+        return this.orderModel.find({ store: ownerId }).populate('customer').exec();
     }
     async updateStatus(orderId, ownerId, dto) {
         const store = await this.storesService.getOwnerStore(ownerId);
@@ -81,7 +78,7 @@ let OrdersService = class OrdersService {
         if (!order) {
             throw new common_1.NotFoundException('Order not found');
         }
-        if (order.store.toString() !== store.id) {
+        if (order.store.toString() !== ownerId) {
             throw new common_1.ForbiddenException('Cannot update orders from another store');
         }
         order.status = dto.status;

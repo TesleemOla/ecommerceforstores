@@ -31,7 +31,7 @@ export class ProductsService {
 
     return this.productModel.create({
       ...dto,
-      store: store._id,
+      store: dto.storeId,
     });
   }
 

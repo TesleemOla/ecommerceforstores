@@ -8,16 +8,16 @@ export declare class AuthService {
     private readonly jwtService;
     constructor(usersService: UsersService, jwtService: JwtService);
     registerCustomer(dto: RegisterCustomerDto): Promise<{
-        accessToken: any;
+        accessToken: string;
         user: User;
     }>;
     registerStoreOwner(dto: RegisterStoreOwnerDto): Promise<{
-        accessToken: any;
+        accessToken: string;
         user: User;
     }>;
     validateUser(email: string, password: string): Promise<User>;
     login(user: User): {
-        accessToken: any;
+        accessToken: string;
         user: User;
     };
     private ensureEmailIsFree;

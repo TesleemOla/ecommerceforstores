@@ -15,7 +15,7 @@ import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { UserRole } from '../common/enums/role.enum';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
-import { AuthenticatedUser } from '../common/interfaces/authenticated-user.interface';
+import * as authenticatedUserInterface from '../common/interfaces/authenticated-user.interface';
 import { UpdateProductDto } from './dto/update-product.dto';
 
 @Controller('products')
@@ -31,7 +31,7 @@ export class ProductsController {
   @Roles(UserRole.StoreOwner)
   @Post()
   createProduct(
-    @CurrentUser() owner: AuthenticatedUser,
+    @CurrentUser() owner: authenticatedUserInterface.AuthenticatedUser,
     @Body() dto: CreateProductDto,
   ) {
     return this.productsService.create(owner.id, dto);
@@ -42,7 +42,7 @@ export class ProductsController {
   @Patch(':id')
   updateProduct(
     @Param('id') productId: string,
-    @CurrentUser() owner: AuthenticatedUser,
+    @CurrentUser() owner: authenticatedUserInterface.AuthenticatedUser,
     @Body() dto: UpdateProductDto,
   ) {
     return this.productsService.update(productId, owner.id, dto);
