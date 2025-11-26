@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.OrderStatus = void 0;
+var OrderStatus;
+(function (OrderStatus) {
+    OrderStatus["Pending"] = "pending";
+    OrderStatus["Confirmed"] = "confirmed";
+    OrderStatus["Shipped"] = "shipped";
+    OrderStatus["Delivered"] = "delivered";
+    OrderStatus["Cancelled"] = "cancelled";
+})(OrderStatus || (exports.OrderStatus = OrderStatus = {}));
+//# sourceMappingURL=order-status.enum.js.map
