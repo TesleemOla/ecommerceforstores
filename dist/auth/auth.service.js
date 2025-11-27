@@ -104,7 +104,7 @@ let AuthService = class AuthService {
             role: user.role,
         };
         return {
-            accessToken: this.jwtService.sign(payload),
+            accessToken: this.jwtService.sign(payload, { secret: process.env.JWT_SECRET, expiresIn: '7d' }),
             user,
         };
     }

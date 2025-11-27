@@ -13,6 +13,11 @@ async function bootstrap() {
       transformOptions: { enableImplicitConversion: true },
     }),
   );
+  app.enableCors({
+    origin: ["http://localhost:3001", "http://localhost:3000"],
+    methods: 'GET, HEAD, PUT, PATCH, DELETE, POST',
+    credentials: true,
+  })
   await app.listen(process.env.PORT ?? 3000);
 }
 
