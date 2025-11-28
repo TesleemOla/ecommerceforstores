@@ -19,4 +19,7 @@ export declare class AuthController {
         accessToken: string;
         user: User;
     };
+    me(req: {
+        user: User;
+    }): User;
 }

@@ -18,6 +18,7 @@ const auth_service_1 = require("./auth.service");
 const register_customer_dto_1 = require("./dto/register-customer.dto");
 const register_store_owner_dto_1 = require("./dto/register-store-owner.dto");
 const local_auth_guard_1 = require("../common/guards/local-auth.guard");
+const jwt_auth_guard_1 = require("../common/guards/jwt-auth.guard");
 let AuthController = class AuthController {
     authService;
     constructor(authService) {
@@ -31,6 +32,9 @@ let AuthController = class AuthController {
     }
     login(req) {
         return this.authService.login(req.user);
+    }
+    me(req) {
+        return req.user;
     }
 };
 exports.AuthController = AuthController;
@@ -56,6 +60,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('me'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "me", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

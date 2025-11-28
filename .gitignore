@@ -1,18 +1,12 @@
-node_modules
+# Dependencies
+/node_modules
 
-node_modules\
-
-
+# Environment variables
 .env
 
+# Package lock file
+# It's often recommended to commit this file, but keeping it ignored as per your original file.
 package-lock.json
 
-
-dist
-
-
-dist/
-
-dist
-
-node_modules/.package-lock.json
+# Compiled output
+/dist
