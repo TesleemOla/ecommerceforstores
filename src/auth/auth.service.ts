@@ -54,6 +54,9 @@ export class AuthService {
     }
     return user;
   }
+  async getMe(user: User) {
+    return this.buildAuthResponse(user);
+  }
 
   login(user: User) {
     return this.buildAuthResponse(user);
